@@ -13,7 +13,6 @@
 		5C619CE62A65074900E67BEA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C619CE52A65074900E67BEA /* ViewController.swift */; };
 		5C619CEB2A65074A00E67BEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C619CEA2A65074A00E67BEA /* Assets.xcassets */; };
 		5C619CEE2A65074A00E67BEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C619CEC2A65074A00E67BEA /* LaunchScreen.storyboard */; };
-		5C619CF62A6508B200E67BEA /* ANSegmentIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C619CF52A6508B200E67BEA /* ANSegmentIndicator.swift */; };
 		5C619CF82A65094700E67BEA /* CircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C619CF72A65094700E67BEA /* CircleViewController.swift */; };
 		5C619CFA2A65096000E67BEA /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C619CF92A65096000E67BEA /* CustomSlider.swift */; };
 		5C619CFC2A6509B500E67BEA /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C619CFB2A6509B500E67BEA /* Models.swift */; };
@@ -34,7 +33,6 @@
 		5C619CEA2A65074A00E67BEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5C619CED2A65074A00E67BEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5C619CEF2A65074A00E67BEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5C619CF52A6508B200E67BEA /* ANSegmentIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANSegmentIndicator.swift; sourceTree = "<group>"; };
 		5C619CF72A65094700E67BEA /* CircleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleViewController.swift; sourceTree = "<group>"; };
 		5C619CF92A65096000E67BEA /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		5C619CFB2A6509B500E67BEA /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -102,7 +100,6 @@
 		5CD7289B2A650E78002C4BC8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				5C619CF52A6508B200E67BEA /* ANSegmentIndicator.swift */,
 				5C619CF92A65096000E67BEA /* CustomSlider.swift */,
 				5C619CEA2A65074A00E67BEA /* Assets.xcassets */,
 			);
@@ -275,7 +272,6 @@
 				5C619CE62A65074900E67BEA /* ViewController.swift in Sources */,
 				5C619CE22A65074900E67BEA /* AppDelegate.swift in Sources */,
 				5CD728942A650C96002C4BC8 /* MaxDrawdownCell.swift in Sources */,
-				5C619CF62A6508B200E67BEA /* ANSegmentIndicator.swift in Sources */,
 				5CD728922A650C5A002C4BC8 /* ChartViewController.swift in Sources */,
 				5C619CE42A65074900E67BEA /* SceneDelegate.swift in Sources */,
 				5CD728982A650CF0002C4BC8 /* DeviationCell.swift in Sources */,

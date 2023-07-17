@@ -28,9 +28,7 @@ class CircleViewController: UIViewController {
         headerLabel.textColor = .lightGray
         return headerLabel
     }()
-    
-    var indicators: [ANSegmentIndicator] = []
-    
+        
     let customTableView: UIView = {
         let customTableView = UIView()
         customTableView.translatesAutoresizingMaskIntoConstraints = false
