@@ -6,13 +6,15 @@
 //
 
 import UIKit
+import Charts
 
 class CircleViewController: UIViewController {
     
     let model = Models()
     
     let secondVC = ChartViewController()
-
+    
+    var pieChartView: PieChartView!
     
     let headerView: UIView = {
         let headerView = UIView()
@@ -66,6 +68,7 @@ class CircleViewController: UIViewController {
         stockSlider.minimumValue = 0
         stockSlider.maximumValue = 100
         stockSlider.value = 61.6
+        stockSlider.minimumTrackTintColor = UIColor.green
         stockSlider.setThumbImage(UIImage(), for: .normal)
         stockSlider.translatesAutoresizingMaskIntoConstraints = false
         return stockSlider
@@ -77,6 +80,7 @@ class CircleViewController: UIViewController {
         fundSlider.maximumValue = 100
         fundSlider.value = 32.4
         fundSlider.setThumbImage(UIImage(), for: .normal)
+        fundSlider.minimumTrackTintColor = UIColor.systemGreen
         fundSlider.translatesAutoresizingMaskIntoConstraints = false
         return fundSlider
     }()
@@ -87,6 +91,7 @@ class CircleViewController: UIViewController {
         obligationSlider.maximumValue = 10
         obligationSlider.value = 1.6
         obligationSlider.setThumbImage(UIImage(), for: .normal)
+        obligationSlider.minimumTrackTintColor = UIColor.systemMint
         obligationSlider.translatesAutoresizingMaskIntoConstraints = false
         return obligationSlider
     }()
@@ -168,22 +173,51 @@ class CircleViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CustomCell.self, forCellReuseIdentifier: CustomCell.identifier)
-        
+        createCircle()
         setupUI()
     }
     
-    private func setupUI() {
-        var settings = ANSegmentIndicatorSettings()
-        settings.defaultSegmentColor = UIColor.systemGreen
-        settings.segmentBorderType = .square
-        settings.segmentsCount = 3
-        settings.segmentWidth = 10
+    func createCircle() {
         
-        let segmentSize: CGFloat = 180.0
-        let segment = ANSegmentIndicator(frame: CGRect(x: 0, y: 0, width: segmentSize, height: segmentSize))
-        segment.settings = settings
-        indicators.append(segment)
-        segment.translatesAutoresizingMaskIntoConstraints = false
+        // Создание экземпляра PieChartView
+        pieChartView = PieChartView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+//        pieChartView.center = view.center
+//        view.addSubview(pieChartView)
+        
+        // Создание данных для сегментов кругового графика
+        let entries = [
+            PieChartDataEntry(value: 28.4, label: ""),
+            PieChartDataEntry(value: 11, label: ""),
+            PieChartDataEntry(value: 61.6, label: "")
+        ]
+        
+        // Создание набора данных
+        let dataSet = PieChartDataSet(entries: entries, label: "")
+        dataSet.colors = [.green, .systemMint, .systemGreen] // Установка цветов для сегментов
+        dataSet.sliceSpace = 5
+        dataSet.formLineWidth = 10
+        dataSet.valueLineWidth = 10
+        dataSet.drawValuesEnabled = false
+        
+        // Создание объекта PieChartData и установка набора данных
+        let data = PieChartData(dataSet: dataSet)
+        
+        // Установка данных для PieChartView
+        pieChartView.data = data
+        pieChartView.highlightPerTapEnabled = false
+        
+        // Настройка внешнего вида кругового графика
+        
+        pieChartView.holeRadiusPercent = 0.82
+        pieChartView.drawEntryLabelsEnabled = false
+        pieChartView.legend.enabled = false
+
+        
+        pieChartView.translatesAutoresizingMaskIntoConstraints = false
+        
+    }
+    
+    private func setupUI() {
         
     //create constraints
         
@@ -194,8 +228,8 @@ class CircleViewController: UIViewController {
         view.addSubview(customView)
         view.addSubview(customTableView)
         view.addSubview(stockSlider)
-
-        customView.addSubview(segment)
+        
+        customView.addSubview(pieChartView)
         customView.addSubview(textDataStackView)
         customView.addSubview(numberDataStackView)
         customView.addSubview(fundSlider)
@@ -207,9 +241,11 @@ class CircleViewController: UIViewController {
         headerView.addSubview(headerLabel)
 
         customTableView.addSubview(tableView)
-            
-        segment.addSubview(sumLabel)
-        segment.addSubview(totalStockLabel)
+        
+
+
+        pieChartView.addSubview(sumLabel)
+        pieChartView.addSubview(totalStockLabel)
             
     NSLayoutConstraint.activate([
         
@@ -218,17 +254,18 @@ class CircleViewController: UIViewController {
         customView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         customView.heightAnchor.constraint(equalToConstant: 390),
         
-        segment.centerXAnchor.constraint(equalTo: self.customView.centerXAnchor),
-        segment.topAnchor.constraint(equalTo: customView.topAnchor, constant: 20),
-        segment.widthAnchor.constraint(equalToConstant: segmentSize),
-        segment.heightAnchor.constraint(equalToConstant: segmentSize),
+        pieChartView.centerXAnchor.constraint(equalTo: self.customView.centerXAnchor),
+        pieChartView.topAnchor.constraint(equalTo: customView.topAnchor, constant: 5),
+        pieChartView.widthAnchor.constraint(equalToConstant: 250),
+        pieChartView.heightAnchor.constraint(equalToConstant: 250),
         
-        sumLabel.centerXAnchor.constraint(equalTo: segment.centerXAnchor),
-        sumLabel.centerYAnchor.constraint(equalTo: segment.centerYAnchor),
+        sumLabel.centerXAnchor.constraint(equalTo: pieChartView.centerXAnchor),
+        sumLabel.topAnchor.constraint(equalTo: pieChartView.topAnchor, constant: 105),
         
         totalStockLabel.topAnchor.constraint(equalTo: sumLabel.bottomAnchor, constant: 5),
-        totalStockLabel.centerXAnchor.constraint(equalTo: segment.centerXAnchor),
+        totalStockLabel.centerXAnchor.constraint(equalTo: pieChartView.centerXAnchor),
         totalStockLabel.heightAnchor.constraint(equalToConstant: 20),
+        
         textDataStackView.leadingAnchor.constraint(equalTo: customView.leadingAnchor, constant: 20),
         textDataStackView.bottomAnchor.constraint(equalTo: customView.bottomAnchor, constant: -30),
         obligationSlider.bottomAnchor.constraint(equalTo: customView.bottomAnchor, constant: -35),
