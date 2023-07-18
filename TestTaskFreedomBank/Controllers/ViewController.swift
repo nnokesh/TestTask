@@ -12,7 +12,7 @@ final class ViewController: UIViewController {
 
     // MARK: - Properties
     
-    let model = Models()
+    let model = Model()
     lazy var circleViewController = CircleViewController()
     lazy var chartViewController = ChartViewController()
     

@@ -16,7 +16,7 @@
 		5C619CEE2A65074A00E67BEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C619CEC2A65074A00E67BEA /* LaunchScreen.storyboard */; };
 		5C619CF82A65094700E67BEA /* CircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C619CF72A65094700E67BEA /* CircleViewController.swift */; };
 		5C619CFA2A65096000E67BEA /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C619CF92A65096000E67BEA /* CustomSlider.swift */; };
-		5C619CFC2A6509B500E67BEA /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C619CFB2A6509B500E67BEA /* Models.swift */; };
+		5C619CFC2A6509B500E67BEA /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C619CFB2A6509B500E67BEA /* Model.swift */; };
 		5CD728922A650C5A002C4BC8 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD728912A650C5A002C4BC8 /* ChartViewController.swift */; };
 		5CD728942A650C96002C4BC8 /* MaxDrawdownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD728932A650C96002C4BC8 /* MaxDrawdownCell.swift */; };
 		5CD728962A650CB2002C4BC8 /* TotalReturnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD728952A650CB2002C4BC8 /* TotalReturnCell.swift */; };
@@ -36,7 +36,7 @@
 		5C619CEF2A65074A00E67BEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C619CF72A65094700E67BEA /* CircleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleViewController.swift; sourceTree = "<group>"; };
 		5C619CF92A65096000E67BEA /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
-		5C619CFB2A6509B500E67BEA /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		5C619CFB2A6509B500E67BEA /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		5CD728912A650C5A002C4BC8 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		5CD728932A650C96002C4BC8 /* MaxDrawdownCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxDrawdownCell.swift; sourceTree = "<group>"; };
 		5CD728952A650CB2002C4BC8 /* TotalReturnCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalReturnCell.swift; sourceTree = "<group>"; };
@@ -130,7 +130,7 @@
 		5CD7289E2A650F1E002C4BC8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5C619CFB2A6509B500E67BEA /* Models.swift */,
+				5C619CFB2A6509B500E67BEA /* Model.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -276,7 +276,7 @@
 				5CD728922A650C5A002C4BC8 /* ChartViewController.swift in Sources */,
 				5C619CE42A65074900E67BEA /* SceneDelegate.swift in Sources */,
 				5CD728982A650CF0002C4BC8 /* DeviationCell.swift in Sources */,
-				5C619CFC2A6509B500E67BEA /* Models.swift in Sources */,
+				5C619CFC2A6509B500E67BEA /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

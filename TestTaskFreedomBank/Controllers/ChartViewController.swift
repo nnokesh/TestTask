@@ -13,6 +13,26 @@ final class ChartViewController: UIViewController, ChartViewDelegate {
     
     // MARK: - Properties
     
+    let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    let contentView: UIView = {
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        return contentView
+    }()
+    
+    let customStackView: UIStackView = {
+        let textDataStackView = UIStackView()
+        textDataStackView.axis = .vertical
+        textDataStackView.spacing = 15
+        textDataStackView.translatesAutoresizingMaskIntoConstraints = false
+        return textDataStackView
+    }()
+    
     /// The segmented control for selecting different chart options.
     lazy var segmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: model.itemsChartSegmentedControl)
@@ -62,7 +82,7 @@ final class ChartViewController: UIViewController, ChartViewDelegate {
     }()
     
     /// The model instance containing the data and configuration.
-    let model = Models()
+    let model = Model()
     
     /// The line chart view for displaying the chart data.
     var lineChartView: LineChartView = {
@@ -134,38 +154,63 @@ final class ChartViewController: UIViewController, ChartViewDelegate {
     // MARK: - UI Setup
     
     private func setupUI() {
-        view.addSubview(analysisView)
-        view.addSubview(graphView)
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         
         graphView.addSubview(lineChartView)
         graphView.addSubview(segmentedControl)
         
         analysisView.addSubview(tableView)
         headerView.addSubview(headerLabel)
+                
+        [graphView, analysisView].forEach { customStackView.addArrangedSubview($0) }
+        contentView.addSubview(customStackView)
+
+        
     }
     
     private func createConstraint() {
         NSLayoutConstraint.activate([
-            graphView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
-            graphView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            graphView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            
+            customStackView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
+            customStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            customStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            
+            graphView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 30),
+            graphView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            graphView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             graphView.heightAnchor.constraint(equalToConstant: 286),
+            
             lineChartView.topAnchor.constraint(equalTo: graphView.topAnchor, constant: 10),
             lineChartView.leadingAnchor.constraint(equalTo: graphView.leadingAnchor, constant: 10),
             lineChartView.trailingAnchor.constraint(equalTo: graphView.trailingAnchor, constant: -10),
+            
             segmentedControl.topAnchor.constraint(equalTo: lineChartView.bottomAnchor, constant: 20),
             segmentedControl.leadingAnchor.constraint(equalTo: graphView.leadingAnchor, constant: 10),
             segmentedControl.trailingAnchor.constraint(equalTo: graphView.trailingAnchor, constant: -10),
             segmentedControl.bottomAnchor.constraint(equalTo: graphView.bottomAnchor, constant: -10),
             segmentedControl.heightAnchor.constraint(equalToConstant: 44),
-            analysisView.topAnchor.constraint(equalTo: graphView.bottomAnchor, constant: 20),
-            analysisView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            analysisView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            analysisView.topAnchor.constraint(equalTo: graphView.bottomAnchor, constant: 15),
+            analysisView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            analysisView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             analysisView.heightAnchor.constraint(equalToConstant: 310),
+            
             tableView.topAnchor.constraint(equalTo: analysisView.topAnchor, constant: 10),
             tableView.leadingAnchor.constraint(equalTo: analysisView.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: analysisView.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: analysisView.bottomAnchor, constant: -10),
+            
             headerLabel.topAnchor.constraint(equalTo: headerView.topAnchor),
             headerLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
             headerLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16)

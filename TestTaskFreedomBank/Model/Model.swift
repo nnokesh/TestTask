@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Models {
+struct Model {
     let images: [UIImage]
     let nameCompany: [String]
     let totalStocks: [String]

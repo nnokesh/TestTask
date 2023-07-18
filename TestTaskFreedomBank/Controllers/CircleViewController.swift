@@ -13,6 +13,26 @@ final class CircleViewController: UIViewController {
     
     // MARK: - Properties
     
+    let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    let contentView: UIView = {
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        return contentView
+    }()
+    
+    let customStackView: UIStackView = {
+        let textDataStackView = UIStackView()
+        textDataStackView.axis = .vertical
+        textDataStackView.spacing = 15
+        textDataStackView.translatesAutoresizingMaskIntoConstraints = false
+        return textDataStackView
+    }()
+    
     var pieChartView: PieChartView!
     
     let headerView: UIView = {
@@ -163,7 +183,7 @@ final class CircleViewController: UIViewController {
         return numberDataStackView
     }()
     
-    let model = Models()
+    let model = Model()
     
     // MARK: - Lifecycle
     
@@ -213,15 +233,16 @@ final class CircleViewController: UIViewController {
     }
     
     private func setupUI() {
+        
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+
         [stockLabel, fundLabel, obligationLabel].forEach { textDataStackView.addArrangedSubview($0) }
         [numberStockLabel, numberFundLabel, numberObligationLabel].forEach { numberDataStackView.addArrangedSubview($0) }
         
-        view.addSubview(tableView)
-        view.addSubview(customView)
-        view.addSubview(customTableView)
-        view.addSubview(stockSlider)
-        
         customView.addSubview(pieChartView)
+        pieChartView.addSubview(sumLabel)
+        pieChartView.addSubview(totalStockLabel)
         customView.addSubview(textDataStackView)
         customView.addSubview(numberDataStackView)
         customView.addSubview(fundSlider)
@@ -230,19 +251,33 @@ final class CircleViewController: UIViewController {
         customView.addSubview(fundSlider)
         customView.addSubview(obligationSlider)
         
-        headerView.addSubview(headerLabel)
-        
         customTableView.addSubview(tableView)
-        
-        pieChartView.addSubview(sumLabel)
-        pieChartView.addSubview(totalStockLabel)
+        headerView.addSubview(headerLabel)
+                
+        [customView, customTableView].forEach { customStackView.addArrangedSubview($0) }
+
+        contentView.addSubview(customStackView)
     }
     
     private func createConstraints() {
         NSLayoutConstraint.activate([
-            customView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            customView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            customView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            
+            customStackView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
+            customStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            customStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            
+            customView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 20),
+            customView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            customView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             customView.heightAnchor.constraint(equalToConstant: 390),
             
             pieChartView.centerXAnchor.constraint(equalTo: customView.centerXAnchor),
@@ -272,11 +307,12 @@ final class CircleViewController: UIViewController {
             numberDataStackView.bottomAnchor.constraint(equalTo: customView.bottomAnchor, constant: -30),
             numberDataStackView.trailingAnchor.constraint(equalTo: customView.trailingAnchor, constant: -20),
             
-            customTableView.topAnchor.constraint(equalTo: customView.bottomAnchor, constant: 20),
-            customTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            customTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            customTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
-            
+            customTableView.topAnchor.constraint(equalTo: customView.bottomAnchor, constant: 15),
+            customTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            customTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            customTableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            customTableView.heightAnchor.constraint(equalToConstant: 390),
+
             tableView.topAnchor.constraint(equalTo: customTableView.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: customTableView.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: customTableView.trailingAnchor),
