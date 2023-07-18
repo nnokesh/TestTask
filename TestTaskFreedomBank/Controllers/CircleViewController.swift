@@ -41,7 +41,7 @@ final class CircleViewController: UIViewController {
         let customView = UIView()
         customView.translatesAutoresizingMaskIntoConstraints = false
         customView.layer.cornerRadius = 20
-        customView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        customView.backgroundColor =  .white
         return customView
     }()
     
@@ -65,7 +65,7 @@ final class CircleViewController: UIViewController {
         stockSlider.minimumValue = 0
         stockSlider.maximumValue = 100
         stockSlider.value = 61.6
-        stockSlider.minimumTrackTintColor = UIColor.green
+        stockSlider.minimumTrackTintColor = UIColor(red: 46/255, green: 132/255, blue: 82/255, alpha: 1)
         stockSlider.setThumbImage(UIImage(), for: .normal)
         stockSlider.translatesAutoresizingMaskIntoConstraints = false
         return stockSlider
@@ -77,7 +77,7 @@ final class CircleViewController: UIViewController {
         fundSlider.maximumValue = 100
         fundSlider.value = 32.4
         fundSlider.setThumbImage(UIImage(), for: .normal)
-        fundSlider.minimumTrackTintColor = UIColor.systemGreen
+        fundSlider.minimumTrackTintColor = UIColor(red: 78/255, green: 188/255, blue: 115/255, alpha: 1)
         fundSlider.translatesAutoresizingMaskIntoConstraints = false
         return fundSlider
     }()
@@ -88,7 +88,7 @@ final class CircleViewController: UIViewController {
         obligationSlider.maximumValue = 10
         obligationSlider.value = 1.6
         obligationSlider.setThumbImage(UIImage(), for: .normal)
-        obligationSlider.minimumTrackTintColor = UIColor.systemMint
+        obligationSlider.minimumTrackTintColor = UIColor(red: 133/255, green: 212/255, blue: 143/255, alpha: 1)
         obligationSlider.translatesAutoresizingMaskIntoConstraints = false
         return obligationSlider
     }()
@@ -170,7 +170,7 @@ final class CircleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = #colorLiteral(red: 0.9686275125, green: 0.9686275125, blue: 0.9686275125, alpha: 1)
+        view.backgroundColor =  UIColor(red: 0.9686275125, green: 0.9686275125, blue: 0.9686275125, alpha: 1)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -196,7 +196,7 @@ final class CircleViewController: UIViewController {
         ]
         
         let dataSet = PieChartDataSet(entries: entries, label: "")
-        dataSet.colors = [.green, .systemMint, .systemGreen]
+        dataSet.colors = [NSUIColor(red: 78/255, green: 188/255, blue: 115/255, alpha: 1), NSUIColor(red: 133/255, green: 212/255, blue: 143/255, alpha: 1), NSUIColor(red: 46/255, green: 132/255, blue: 82/255, alpha: 1)]
         dataSet.sliceSpace = 5
         dataSet.formLineWidth = 10
         dataSet.valueLineWidth = 10
