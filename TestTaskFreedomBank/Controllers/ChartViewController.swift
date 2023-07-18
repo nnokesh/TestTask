@@ -8,53 +8,64 @@
 import UIKit
 import Charts
 
-class ChartViewController: UIViewController, ChartViewDelegate {
+/// A view controller that displays a chart with segmented control and a table view for analysis.
+final class ChartViewController: UIViewController, ChartViewDelegate {
     
-    let model = Models()
-
+    // MARK: - Properties
+    
+    /// The segmented control for selecting different chart options.
     lazy var segmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: model.itemsChartSegmentedControl)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.selectedSegmentIndex = 0
         return segmentedControl
     }()
-
+    
+    /// The view representing the chart.
     let graphView: UIView = {
-       let view = UIView()
-       view.translatesAutoresizingMaskIntoConstraints = false
-       view.layer.cornerRadius = 20
-       view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-       return view
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 20
+        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        return view
     }()
     
+    /// The view for displaying analysis.
     let analysisView: UIView = {
-       let view = UIView()
-       view.translatesAutoresizingMaskIntoConstraints = false
-       view.layer.cornerRadius = 20
-       view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-       return view
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 20
+        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        return view
     }()
     
+    /// The table view for displaying analysis details.
     let tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
     
+    /// The header view for the table view.
     let headerView: UIView = {
-       let headerView = UIView()
-       return headerView
-       }()
-       
-   let headerLabel: UILabel = {
-       let headerLabel = UILabel()
-       headerLabel.translatesAutoresizingMaskIntoConstraints = false
-       headerLabel.text = "Анализ доходности портфеля"
-       headerLabel.font = UIFont.systemFont(ofSize: 13)
-       return headerLabel
-   }()
+        let headerView = UIView()
+        return headerView
+    }()
     
-   var lineChartView: LineChartView = {
+    /// The label for the table view header.
+    let headerLabel: UILabel = {
+        let headerLabel = UILabel()
+        headerLabel.translatesAutoresizingMaskIntoConstraints = false
+        headerLabel.text = "Анализ доходности портфеля"
+        headerLabel.font = UIFont.systemFont(ofSize: 13)
+        return headerLabel
+    }()
+    
+    /// The model instance containing the data and configuration.
+    let model = Models()
+    
+    /// The line chart view for displaying the chart data.
+    var lineChartView: LineChartView = {
         let chartView = LineChartView()
         chartView.backgroundColor = .white
         chartView.leftAxis.enabled = false
@@ -65,6 +76,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         return chartView
     }()
     
+    /// The data entries for the first line on the chart.
     let yValues: [ChartDataEntry] = [
         ChartDataEntry(x: 0.0, y: 34.00),
         ChartDataEntry(x: 1.0, y: 37.39),
@@ -82,6 +94,7 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         ChartDataEntry(x: 13.0, y: 38.2),
     ]
     
+    /// The data entries for the second line on the chart.
     let secondYValues: [ChartDataEntry] = [
         ChartDataEntry(x: 0.0, y: 41.0),
         ChartDataEntry(x: 1.0, y: 40.0),
@@ -98,7 +111,9 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         ChartDataEntry(x: 12.0, y: 36.0),
         ChartDataEntry(x: 13.0, y: 37.5),
     ]
-
+    
+    // MARK: - View Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -110,52 +125,54 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         tableView.register(DeviationCell.self, forCellReuseIdentifier: DeviationCell.identifier)
         
         view.backgroundColor = #colorLiteral(red: 0.9686275125, green: 0.9686275125, blue: 0.9686275125, alpha: 1)
+        
+        setupUI()
+        createConstraint()
+        setData()
+    }
+    
+    // MARK: - UI Setup
+    
+    private func setupUI() {
         view.addSubview(analysisView)
         view.addSubview(graphView)
         
         graphView.addSubview(lineChartView)
         graphView.addSubview(segmentedControl)
-
-        analysisView.addSubview(tableView)
         
+        analysisView.addSubview(tableView)
         headerView.addSubview(headerLabel)
-
-        createConstraint()
-        setData()
     }
     
     private func createConstraint() {
-        
-      NSLayoutConstraint.activate([
-        graphView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
-        graphView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-        graphView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-        graphView.heightAnchor.constraint(equalToConstant: 286),
-        lineChartView.topAnchor.constraint(equalTo: graphView.topAnchor, constant: 10),
-        lineChartView.leadingAnchor.constraint(equalTo: graphView.leadingAnchor, constant: 10),
-        lineChartView.trailingAnchor.constraint(equalTo: graphView.trailingAnchor, constant: -10),
-        segmentedControl.topAnchor.constraint(equalTo: lineChartView.bottomAnchor, constant: 20),
-        segmentedControl.leadingAnchor.constraint(equalTo: graphView.leadingAnchor, constant: 10),
-        segmentedControl.trailingAnchor.constraint(equalTo: graphView.trailingAnchor, constant: -10),
-        segmentedControl.bottomAnchor.constraint(equalTo: graphView.bottomAnchor, constant: -10),
-        segmentedControl.heightAnchor.constraint(equalToConstant: 44),
-        analysisView.topAnchor.constraint(equalTo: graphView.bottomAnchor, constant: 20),
-        analysisView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-        analysisView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-        analysisView.heightAnchor.constraint(equalToConstant: 310),
-        tableView.topAnchor.constraint(equalTo: analysisView.topAnchor, constant: 10),
-        tableView.leadingAnchor.constraint(equalTo: analysisView.leadingAnchor),
-        tableView.trailingAnchor.constraint(equalTo: analysisView.trailingAnchor),
-        tableView.bottomAnchor.constraint(equalTo: analysisView.bottomAnchor, constant: -10),
-        headerLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-        headerLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
-        headerLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16)
+        NSLayoutConstraint.activate([
+            graphView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            graphView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            graphView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            graphView.heightAnchor.constraint(equalToConstant: 286),
+            lineChartView.topAnchor.constraint(equalTo: graphView.topAnchor, constant: 10),
+            lineChartView.leadingAnchor.constraint(equalTo: graphView.leadingAnchor, constant: 10),
+            lineChartView.trailingAnchor.constraint(equalTo: graphView.trailingAnchor, constant: -10),
+            segmentedControl.topAnchor.constraint(equalTo: lineChartView.bottomAnchor, constant: 20),
+            segmentedControl.leadingAnchor.constraint(equalTo: graphView.leadingAnchor, constant: 10),
+            segmentedControl.trailingAnchor.constraint(equalTo: graphView.trailingAnchor, constant: -10),
+            segmentedControl.bottomAnchor.constraint(equalTo: graphView.bottomAnchor, constant: -10),
+            segmentedControl.heightAnchor.constraint(equalToConstant: 44),
+            analysisView.topAnchor.constraint(equalTo: graphView.bottomAnchor, constant: 20),
+            analysisView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            analysisView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            analysisView.heightAnchor.constraint(equalToConstant: 310),
+            tableView.topAnchor.constraint(equalTo: analysisView.topAnchor, constant: 10),
+            tableView.leadingAnchor.constraint(equalTo: analysisView.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: analysisView.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: analysisView.bottomAnchor, constant: -10),
+            headerLabel.topAnchor.constraint(equalTo: headerView.topAnchor),
+            headerLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
+            headerLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16)
         ])
     }
     
-    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        print(entry)
-    }
+    // MARK: - Data Setup
     
     private func setData() {
         let set1 = LineChartDataSet(entries: yValues, label: "Доходность")
@@ -176,12 +193,19 @@ class ChartViewController: UIViewController, ChartViewDelegate {
         set2.drawFilledEnabled = true
         set2.drawCirclesEnabled = false
         
-        let data = LineChartData(dataSets: [set1,set2])
+        let data = LineChartData(dataSets: [set1, set2])
         data.setDrawValues(false)
         lineChartView.data = data
     }
+
+    // MARK: - ChartViewDelegate
+    
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        print(entry)
+    }
 }
 
+// MARK: - UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate
 
 extension ChartViewController: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -195,15 +219,15 @@ extension ChartViewController: UITableViewDelegate, UITableViewDataSource, UIScr
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: MaxDrawdownCell.identifier, for: indexPath) as! MaxDrawdownCell
-           return cell
-       } else if indexPath.row == 1 {
-           let cell = tableView.dequeueReusableCell(withIdentifier: TotalReturnCell.identifier, for: indexPath) as! TotalReturnCell
-           return cell
-       } else {
-           let cell = tableView.dequeueReusableCell(withIdentifier: DeviationCell.identifier, for: indexPath) as! DeviationCell
-           return cell
-       }
-   }
+            return cell
+        } else if indexPath.row == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: TotalReturnCell.identifier, for: indexPath) as! TotalReturnCell
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: DeviationCell.identifier, for: indexPath) as! DeviationCell
+            return cell
+        }
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("tapped cell")
@@ -217,5 +241,3 @@ extension ChartViewController: UITableViewDelegate, UITableViewDataSource, UIScr
         return 40
     }
 }
-
-

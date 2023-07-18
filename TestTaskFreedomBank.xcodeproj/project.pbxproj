@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4AB992C8A62C76193B5D7CCA /* Pods_TestTaskFreedomBank.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31528DFC7BC2A94976E77C7D /* Pods_TestTaskFreedomBank.framework */; };
+		5C475A992A6624EC00A32166 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C475A982A6624EC00A32166 /* CustomCell.swift */; };
 		5C619CE22A65074900E67BEA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C619CE12A65074900E67BEA /* AppDelegate.swift */; };
 		5C619CE42A65074900E67BEA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C619CE32A65074900E67BEA /* SceneDelegate.swift */; };
 		5C619CE62A65074900E67BEA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C619CE52A65074900E67BEA /* ViewController.swift */; };
@@ -16,7 +17,6 @@
 		5C619CF82A65094700E67BEA /* CircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C619CF72A65094700E67BEA /* CircleViewController.swift */; };
 		5C619CFA2A65096000E67BEA /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C619CF92A65096000E67BEA /* CustomSlider.swift */; };
 		5C619CFC2A6509B500E67BEA /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C619CFB2A6509B500E67BEA /* Models.swift */; };
-		5C619CFE2A6509D800E67BEA /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C619CFD2A6509D800E67BEA /* CustomCell.swift */; };
 		5CD728922A650C5A002C4BC8 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD728912A650C5A002C4BC8 /* ChartViewController.swift */; };
 		5CD728942A650C96002C4BC8 /* MaxDrawdownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD728932A650C96002C4BC8 /* MaxDrawdownCell.swift */; };
 		5CD728962A650CB2002C4BC8 /* TotalReturnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD728952A650CB2002C4BC8 /* TotalReturnCell.swift */; };
@@ -26,6 +26,7 @@
 /* Begin PBXFileReference section */
 		13EF3B1D1B22A635AFDBD79E /* Pods-TestTaskFreedomBank.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestTaskFreedomBank.debug.xcconfig"; path = "Target Support Files/Pods-TestTaskFreedomBank/Pods-TestTaskFreedomBank.debug.xcconfig"; sourceTree = "<group>"; };
 		31528DFC7BC2A94976E77C7D /* Pods_TestTaskFreedomBank.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestTaskFreedomBank.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C475A982A6624EC00A32166 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		5C619CDE2A65074900E67BEA /* TestTaskFreedomBank.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestTaskFreedomBank.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C619CE12A65074900E67BEA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C619CE32A65074900E67BEA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -36,7 +37,6 @@
 		5C619CF72A65094700E67BEA /* CircleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleViewController.swift; sourceTree = "<group>"; };
 		5C619CF92A65096000E67BEA /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		5C619CFB2A6509B500E67BEA /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		5C619CFD2A6509D800E67BEA /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		5CD728912A650C5A002C4BC8 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		5CD728932A650C96002C4BC8 /* MaxDrawdownCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxDrawdownCell.swift; sourceTree = "<group>"; };
 		5CD728952A650CB2002C4BC8 /* TotalReturnCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalReturnCell.swift; sourceTree = "<group>"; };
@@ -89,10 +89,11 @@
 		5CD728992A650DF8002C4BC8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5C619CFD2A6509D800E67BEA /* CustomCell.swift */,
 				5CD728932A650C96002C4BC8 /* MaxDrawdownCell.swift */,
 				5CD728952A650CB2002C4BC8 /* TotalReturnCell.swift */,
 				5CD728972A650CF0002C4BC8 /* DeviationCell.swift */,
+				5C619CF92A65096000E67BEA /* CustomSlider.swift */,
+				5C475A982A6624EC00A32166 /* CustomCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -100,7 +101,6 @@
 		5CD7289B2A650E78002C4BC8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				5C619CF92A65096000E67BEA /* CustomSlider.swift */,
 				5C619CEA2A65074A00E67BEA /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -268,6 +268,7 @@
 			files = (
 				5C619CF82A65094700E67BEA /* CircleViewController.swift in Sources */,
 				5CD728962A650CB2002C4BC8 /* TotalReturnCell.swift in Sources */,
+				5C475A992A6624EC00A32166 /* CustomCell.swift in Sources */,
 				5C619CFA2A65096000E67BEA /* CustomSlider.swift in Sources */,
 				5C619CE62A65074900E67BEA /* ViewController.swift in Sources */,
 				5C619CE22A65074900E67BEA /* AppDelegate.swift in Sources */,
@@ -275,7 +276,6 @@
 				5CD728922A650C5A002C4BC8 /* ChartViewController.swift in Sources */,
 				5C619CE42A65074900E67BEA /* SceneDelegate.swift in Sources */,
 				5CD728982A650CF0002C4BC8 /* DeviationCell.swift in Sources */,
-				5C619CFE2A6509D800E67BEA /* CustomCell.swift in Sources */,
 				5C619CFC2A6509B500E67BEA /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

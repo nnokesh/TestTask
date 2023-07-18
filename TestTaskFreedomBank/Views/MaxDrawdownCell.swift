@@ -7,10 +7,15 @@
 
 import UIKit
 
+/**
+ A custom table view cell used to display maximum drawdown information.
+ */
 final class MaxDrawdownCell: UITableViewCell {
     
-    static let identifier = "FirstCell"
-       
+    /// A reusable identifier for the cell.
+    static let identifier = "MaxDrawdownCell"
+    
+    /// The label displaying the drawdown data.
     let dataLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -20,6 +25,7 @@ final class MaxDrawdownCell: UITableViewCell {
         return label
     }()
     
+    /// The label displaying the drawdown percentage.
     let percentLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -32,9 +38,7 @@ final class MaxDrawdownCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.addSubview(dataLabel)
-        contentView.addSubview(percentLabel)
-
+        setupUI()
         makeConstraints()
     }
     
@@ -42,17 +46,26 @@ final class MaxDrawdownCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /**
+     Sets up the cell's UI elements.
+     */
+    private func setupUI() {
+        contentView.addSubview(dataLabel)
+        contentView.addSubview(percentLabel)
+    }
+    
+    /**
+     Applies constraints to the cell's UI elements.
+     */
     private func makeConstraints() {
         NSLayoutConstraint.activate([
-        dataLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-        dataLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-        dataLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
-        percentLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-        percentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-        percentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
+            dataLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            dataLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            dataLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            
+            percentLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            percentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            percentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
     }
 }
-        
-      
-

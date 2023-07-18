@@ -5,13 +5,17 @@
 //  Created by Nursultan on 17.07.2023.
 //
 
-
 import UIKit
 
+/**
+ A custom table view cell used to display total return information.
+ */
 final class TotalReturnCell: UITableViewCell {
     
-    static let identifier = "SecondCell"
+    /// A reusable identifier for the cell.
+    static let identifier = "TotalReturnCell"
     
+    /// The label displaying the total profit value.
     let allProfitLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -21,6 +25,7 @@ final class TotalReturnCell: UITableViewCell {
         return label
     }()
     
+    /// The label displaying the average profit per day value.
     let averagePerDayLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -30,6 +35,7 @@ final class TotalReturnCell: UITableViewCell {
         return label
     }()
     
+    /// The label displaying the annual percentage profit value.
     let percentagePerAnnumLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -39,6 +45,7 @@ final class TotalReturnCell: UITableViewCell {
         return label
     }()
     
+    /// A stack view to hold the data labels vertically.
     let dataVerticalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -47,6 +54,7 @@ final class TotalReturnCell: UITableViewCell {
         return stackView
     }()
     
+    /// The label displaying the total profit percentage.
     let profitPercentLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -56,6 +64,7 @@ final class TotalReturnCell: UITableViewCell {
         return label
     }()
     
+    /// The label displaying the average profit percentage per day.
     let averagePercentLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -65,6 +74,7 @@ final class TotalReturnCell: UITableViewCell {
         return label
     }()
     
+    /// The label displaying the annual profit percentage.
     let annumPercentLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -74,6 +84,7 @@ final class TotalReturnCell: UITableViewCell {
         return label
     }()
     
+    /// A stack view to hold the percentage labels vertically.
     let percentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -94,33 +105,29 @@ final class TotalReturnCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /**
+     Sets up the cell's UI elements.
+     */
     private func setupUI() {
-        
         contentView.addSubview(dataVerticalStackView)
         contentView.addSubview(percentStackView)
         
         [allProfitLabel, averagePerDayLabel, percentagePerAnnumLabel].forEach { dataVerticalStackView.addArrangedSubview($0) }
-        
         [profitPercentLabel, averagePercentLabel, annumPercentLabel].forEach { percentStackView.addArrangedSubview($0) }
     }
     
+    /**
+     Applies constraints to the cell's UI elements.
+     */
     private func makeConstraints() {
-        
-        [allProfitLabel, averagePerDayLabel, percentagePerAnnumLabel].forEach { dataVerticalStackView.addArrangedSubview($0) }
-        
-        [profitPercentLabel, averagePercentLabel, annumPercentLabel].forEach { percentStackView.addArrangedSubview($0) }
-
         NSLayoutConstraint.activate([
-        dataVerticalStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-        dataVerticalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-        dataVerticalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
-        
-        percentStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-        percentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-        percentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
-      ])
+            dataVerticalStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            dataVerticalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            dataVerticalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            
+            percentStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            percentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            percentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
+        ])
     }
 }
-        
-      
-

@@ -8,11 +8,10 @@
 import UIKit
 import Charts
 
-class CircleViewController: UIViewController {
+/// View controller that displays a circle view with a pie chart and a table view.
+final class CircleViewController: UIViewController {
     
-    let model = Models()
-    
-    let secondVC = ChartViewController()
+    // MARK: - Properties
     
     var pieChartView: PieChartView!
     
@@ -20,7 +19,7 @@ class CircleViewController: UIViewController {
         let headerView = UIView()
         return headerView
     }()
-    
+
     let headerLabel: UILabel = {
         let headerLabel = UILabel()
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -28,7 +27,7 @@ class CircleViewController: UIViewController {
         headerLabel.textColor = .lightGray
         return headerLabel
     }()
-        
+    
     let customTableView: UIView = {
         let customTableView = UIView()
         customTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -164,64 +163,59 @@ class CircleViewController: UIViewController {
         return numberDataStackView
     }()
     
+    let model = Models()
+    
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = #colorLiteral(red: 0.9686275125, green: 0.9686275125, blue: 0.9686275125, alpha: 1)
+        
         tableView.delegate = self
         tableView.dataSource = self
+        
         tableView.register(CustomCell.self, forCellReuseIdentifier: CustomCell.identifier)
+        
         createCircle()
+        
         setupUI()
+        
+        createConstraints()
     }
     
-    func createCircle() {
-        
-        // Создание экземпляра PieChartView
+    // MARK: - Setup Methods
+    
+    private func createCircle() {
         pieChartView = PieChartView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
-//        pieChartView.center = view.center
-//        view.addSubview(pieChartView)
         
-        // Создание данных для сегментов кругового графика
         let entries = [
             PieChartDataEntry(value: 28.4, label: ""),
             PieChartDataEntry(value: 11, label: ""),
             PieChartDataEntry(value: 61.6, label: "")
         ]
         
-        // Создание набора данных
         let dataSet = PieChartDataSet(entries: entries, label: "")
-        dataSet.colors = [.green, .systemMint, .systemGreen] // Установка цветов для сегментов
+        dataSet.colors = [.green, .systemMint, .systemGreen]
         dataSet.sliceSpace = 5
         dataSet.formLineWidth = 10
         dataSet.valueLineWidth = 10
         dataSet.drawValuesEnabled = false
         
-        // Создание объекта PieChartData и установка набора данных
         let data = PieChartData(dataSet: dataSet)
         
-        // Установка данных для PieChartView
         pieChartView.data = data
         pieChartView.highlightPerTapEnabled = false
-        
-        // Настройка внешнего вида кругового графика
-        
         pieChartView.holeRadiusPercent = 0.82
         pieChartView.drawEntryLabelsEnabled = false
         pieChartView.legend.enabled = false
-
-        
         pieChartView.translatesAutoresizingMaskIntoConstraints = false
-        
     }
     
     private func setupUI() {
-        
-    //create constraints
-        
         [stockLabel, fundLabel, obligationLabel].forEach { textDataStackView.addArrangedSubview($0) }
         [numberStockLabel, numberFundLabel, numberObligationLabel].forEach { numberDataStackView.addArrangedSubview($0) }
-            
+        
         view.addSubview(tableView)
         view.addSubview(customView)
         view.addSubview(customTableView)
@@ -235,67 +229,70 @@ class CircleViewController: UIViewController {
         customView.addSubview(stockSlider)
         customView.addSubview(fundSlider)
         customView.addSubview(obligationSlider)
-    
+        
         headerView.addSubview(headerLabel)
-
+        
         customTableView.addSubview(tableView)
         
-
-
         pieChartView.addSubview(sumLabel)
         pieChartView.addSubview(totalStockLabel)
+    }
+    
+    private func createConstraints() {
+        NSLayoutConstraint.activate([
+            customView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            customView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            customView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            customView.heightAnchor.constraint(equalToConstant: 390),
             
-    NSLayoutConstraint.activate([
-        
-        customView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-        customView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-        customView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-        customView.heightAnchor.constraint(equalToConstant: 390),
-        
-        pieChartView.centerXAnchor.constraint(equalTo: self.customView.centerXAnchor),
-        pieChartView.topAnchor.constraint(equalTo: customView.topAnchor, constant: 5),
-        pieChartView.widthAnchor.constraint(equalToConstant: 250),
-        pieChartView.heightAnchor.constraint(equalToConstant: 250),
-        
-        sumLabel.centerXAnchor.constraint(equalTo: pieChartView.centerXAnchor),
-        sumLabel.topAnchor.constraint(equalTo: pieChartView.topAnchor, constant: 105),
-        
-        totalStockLabel.topAnchor.constraint(equalTo: sumLabel.bottomAnchor, constant: 5),
-        totalStockLabel.centerXAnchor.constraint(equalTo: pieChartView.centerXAnchor),
-        totalStockLabel.heightAnchor.constraint(equalToConstant: 20),
-        
-        textDataStackView.leadingAnchor.constraint(equalTo: customView.leadingAnchor, constant: 20),
-        textDataStackView.bottomAnchor.constraint(equalTo: customView.bottomAnchor, constant: -30),
-        obligationSlider.bottomAnchor.constraint(equalTo: customView.bottomAnchor, constant: -35),
-        obligationSlider.leadingAnchor.constraint(equalTo: textDataStackView.trailingAnchor, constant: 60),
-        fundSlider.bottomAnchor.constraint(equalTo: obligationSlider.topAnchor, constant: -33),
-        fundSlider.leadingAnchor.constraint(equalTo: textDataStackView.trailingAnchor, constant: 60),
-        stockSlider.bottomAnchor.constraint(equalTo: fundSlider.topAnchor, constant: -33),
-        stockSlider.leadingAnchor.constraint(equalTo: textDataStackView.trailingAnchor, constant: 60),
-        numberDataStackView.bottomAnchor.constraint(equalTo: customView.bottomAnchor, constant: -30),
-        numberDataStackView.trailingAnchor.constraint(equalTo: customView.trailingAnchor, constant: -20),
-        customTableView.topAnchor.constraint(equalTo: customView.bottomAnchor, constant: 20),
-        customTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-        customTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-        customTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
-        tableView.topAnchor.constraint(equalTo: customTableView.topAnchor),
-        tableView.leadingAnchor.constraint(equalTo: customTableView.leadingAnchor),
-        tableView.trailingAnchor.constraint(equalTo: customTableView.trailingAnchor),
-        tableView.bottomAnchor.constraint(equalTo: customTableView.bottomAnchor),
-        headerLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 8),
-        headerLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
-        headerLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16),
-        headerLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -8)
-          ])
-        }
-        
-        @objc func segmentedControlValueChanged(segment: UISegmentedControl) {
-            print("changeValue")
+            pieChartView.centerXAnchor.constraint(equalTo: customView.centerXAnchor),
+            pieChartView.topAnchor.constraint(equalTo: customView.topAnchor, constant: 5),
+            pieChartView.widthAnchor.constraint(equalToConstant: 250),
+            pieChartView.heightAnchor.constraint(equalToConstant: 250),
+            
+            sumLabel.centerXAnchor.constraint(equalTo: pieChartView.centerXAnchor),
+            sumLabel.topAnchor.constraint(equalTo: pieChartView.topAnchor, constant: 105),
+            
+            totalStockLabel.topAnchor.constraint(equalTo: sumLabel.bottomAnchor, constant: 5),
+            totalStockLabel.centerXAnchor.constraint(equalTo: pieChartView.centerXAnchor),
+            totalStockLabel.heightAnchor.constraint(equalToConstant: 20),
+            
+            textDataStackView.leadingAnchor.constraint(equalTo: customView.leadingAnchor, constant: 20),
+            textDataStackView.bottomAnchor.constraint(equalTo: customView.bottomAnchor, constant: -30),
+            
+            obligationSlider.bottomAnchor.constraint(equalTo: customView.bottomAnchor, constant: -35),
+            obligationSlider.leadingAnchor.constraint(equalTo: textDataStackView.trailingAnchor, constant: 60),
+            
+            fundSlider.bottomAnchor.constraint(equalTo: obligationSlider.topAnchor, constant: -33),
+            fundSlider.leadingAnchor.constraint(equalTo: textDataStackView.trailingAnchor, constant: 60),
+            
+            stockSlider.bottomAnchor.constraint(equalTo: fundSlider.topAnchor, constant: -33),
+            stockSlider.leadingAnchor.constraint(equalTo: textDataStackView.trailingAnchor, constant: 60),
+            
+            numberDataStackView.bottomAnchor.constraint(equalTo: customView.bottomAnchor, constant: -30),
+            numberDataStackView.trailingAnchor.constraint(equalTo: customView.trailingAnchor, constant: -20),
+            
+            customTableView.topAnchor.constraint(equalTo: customView.bottomAnchor, constant: 20),
+            customTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            customTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            customTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+            
+            tableView.topAnchor.constraint(equalTo: customTableView.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: customTableView.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: customTableView.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: customTableView.bottomAnchor),
+            
+            headerLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 8),
+            headerLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
+            headerLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16),
+            headerLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -8)
+        ])
     }
 }
 
+// MARK: - UITableViewDelegate & UITableViewDataSource
 
-extension CircleViewController: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
+extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
@@ -307,7 +304,7 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource, UISc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomCell.identifier, for: indexPath) as? CustomCell else {
             return UITableViewCell()
-         }
+        }
         
         let image = model.images[indexPath.row]
         cell.logoImageView.image = image
@@ -323,7 +320,7 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource, UISc
         
         let percentLabelColor = model.percentTextColors[indexPath.row]
         cell.percentLabel.textColor = percentLabelColor
-    
+        
         return cell
     }
     
@@ -339,6 +336,3 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource, UISc
         return 40
     }
 }
-
-
-

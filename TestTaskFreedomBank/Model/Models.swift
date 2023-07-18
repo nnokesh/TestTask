@@ -16,10 +16,10 @@ struct Models {
     let itemsCircleSegmentedControl: [String]
     let itemsChartSegmentedControl: [String]
 
- 
     init() {
         
         itemsCircleSegmentedControl = ["Портфель", "Структура"]
+        
         itemsChartSegmentedControl = ["1 д", "7 д","1 м","3 м","6 м","12 м"]
 
         images = [
@@ -45,7 +45,7 @@ struct Models {
         ]
         
         percentData = ["+0,10 (0,41%)", "-0,89 (1,51%)", "+0,10 (0,41%)", "+0,10 (0,41%)", "+0,10 (0,41%)"]
+        
         percentTextColors = [UIColor.systemGreen, UIColor.red, UIColor.systemGreen, UIColor.systemGreen, UIColor.systemGreen]
-       
     }
 }
