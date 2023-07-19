@@ -56,7 +56,7 @@ final class ChartViewController: UIViewController {
     private let headerLabel: UILabel = {
         let headerLabel = UILabel()
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
-        headerLabel.text = "Анализ доходности портфеля"
+        headerLabel.text = Constants.portfolioAnalysis
         headerLabel.font = UIFont.systemFont(ofSize: 13)
         return headerLabel
     }()
@@ -141,7 +141,7 @@ final class ChartViewController: UIViewController {
     // MARK: - Data Setup
     
     private func setData() {
-        let set1 = LineChartDataSet(entries: chartDataModel.yValues, label: "Доходность")
+        let set1 = LineChartDataSet(entries: chartDataModel.yValues, label: Constants.profitLabelText)
         set1.mode = .linear
         set1.lineWidth = 3
         set1.setColor(.systemBlue)
@@ -150,7 +150,7 @@ final class ChartViewController: UIViewController {
         set1.drawFilledEnabled = true
         set1.drawCirclesEnabled = false
         
-        let set2 = LineChartDataSet(entries: chartDataModel.secondYValues, label: "Чистые активы")
+        let set2 = LineChartDataSet(entries: chartDataModel.secondYValues, label: Constants.netAssets)
         set2.mode = .linear
         set2.lineWidth = 3
         set2.setColor(.systemPurple)

@@ -19,7 +19,7 @@ final class TotalReturnCell: UITableViewCell {
     let allProfitLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Общая доходность за все время"
+        label.text = Constants.totalReturn
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .lightGray
         return label

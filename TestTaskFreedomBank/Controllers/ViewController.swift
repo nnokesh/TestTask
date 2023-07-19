@@ -61,10 +61,7 @@ final class ViewController: UIViewController {
         // Add the segmented control to the view
         view.addSubview(segmentedControl)
         
-        // Add the circle view controller as a child view controller
-        addChild(circleViewController)
         view.addSubview(circleViewController.view)
-        circleViewController.didMove(toParent: self)
         circleViewController.view.translatesAutoresizingMaskIntoConstraints = false
     }
     

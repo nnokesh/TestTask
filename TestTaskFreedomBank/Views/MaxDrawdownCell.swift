@@ -19,7 +19,7 @@ final class MaxDrawdownCell: UITableViewCell {
     let dataLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Макс.просадка за все время"
+        label.text = Constants.maxDrawdown
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .lightGray
         return label

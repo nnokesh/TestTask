@@ -55,7 +55,7 @@ import UIKit
     let walletLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "2 090,80 $"
+        label.text = Constants.numberWalletLabel
         let attributedString = NSMutableAttributedString(string: label.text ?? "")
         let boldFont = UIFont(name: "Helvetica-Bold", size: 16)
         attributedString.addAttributes([.font: boldFont ?? ""], range: NSRange(location: 0, length: 5))

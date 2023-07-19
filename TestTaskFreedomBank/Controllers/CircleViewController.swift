@@ -41,7 +41,7 @@ final class CircleViewController: UIViewController {
     private let headerLabel: UILabel = {
         let headerLabel = UILabel()
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
-        headerLabel.text = "Портфель"
+        headerLabel.text = Constants.headerLabelText
         headerLabel.textColor = .lightGray
         return headerLabel
     }()
@@ -72,7 +72,7 @@ final class CircleViewController: UIViewController {
     
     private let sumLabel: UILabel = {
         let sumLabel = UILabel()
-        sumLabel.text = "3 660 $"
+        sumLabel.text = Constants.sumLabelText
         sumLabel.font = UIFont(name: "Helvetica-Bold", size: 26)
         sumLabel.textColor = .black
         sumLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -114,7 +114,7 @@ final class CircleViewController: UIViewController {
     
     private let stockLabel: UILabel = {
         let stockLabel = UILabel()
-        stockLabel.text = "Акции"
+        stockLabel.text = Constants.stockLabelText
         stockLabel.textColor = .lightGray
         stockLabel.translatesAutoresizingMaskIntoConstraints = false
         return stockLabel
@@ -122,7 +122,7 @@ final class CircleViewController: UIViewController {
     
     private let fundLabel: UILabel = {
         let fundLabel = UILabel()
-        fundLabel.text = "Фонды"
+        fundLabel.text = Constants.fundLabelText
         fundLabel.textColor = .lightGray
         fundLabel.translatesAutoresizingMaskIntoConstraints = false
         return fundLabel
@@ -130,7 +130,7 @@ final class CircleViewController: UIViewController {
     
     private let obligationLabel: UILabel = {
         let obligationLabel = UILabel()
-        obligationLabel.text = "Облигации"
+        obligationLabel.text = Constants.obligationLabelText
         obligationLabel.textColor = .lightGray
         obligationLabel.translatesAutoresizingMaskIntoConstraints = false
         return obligationLabel
@@ -138,7 +138,7 @@ final class CircleViewController: UIViewController {
     
     private let totalStockLabel: UILabel = {
         let totalStocksLabel = UILabel()
-        totalStocksLabel.text = "5 акций"
+        totalStocksLabel.text = Constants.totalStocksLabelText
         totalStocksLabel.textColor = .lightGray
         totalStocksLabel.translatesAutoresizingMaskIntoConstraints = false
         return totalStocksLabel
@@ -146,21 +146,21 @@ final class CircleViewController: UIViewController {
     
     private let numberStockLabel: UILabel = {
         let numberStockLabel = UILabel()
-        numberStockLabel.text = "61,6%"
+        numberStockLabel.text = Constants.numberStockLabel
         numberStockLabel.translatesAutoresizingMaskIntoConstraints = false
         return numberStockLabel
     }()
     
     private let numberFundLabel: UILabel = {
         let numberFundLabel = UILabel()
-        numberFundLabel.text = "32,4%"
+        numberFundLabel.text = Constants.numberFundLabel
         numberFundLabel.translatesAutoresizingMaskIntoConstraints = false
         return numberFundLabel
     }()
     
     private let numberObligationLabel: UILabel = {
         let numberObligationLabel = UILabel()
-        numberObligationLabel.text = "5%"
+        numberObligationLabel.text = Constants.numberObligationLabel
         numberObligationLabel.translatesAutoresizingMaskIntoConstraints = false
         return numberObligationLabel
     }()
