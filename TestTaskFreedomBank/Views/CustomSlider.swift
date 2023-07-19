@@ -9,7 +9,7 @@ import UIKit
 
 ///A custom slider control that modifies the appearance of the track.
 
-class CustomSlider: UISlider {
+final class CustomSlider: UISlider {
     
     // MARK: - Customization
     

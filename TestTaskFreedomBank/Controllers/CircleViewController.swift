@@ -13,34 +13,32 @@ final class CircleViewController: UIViewController {
     
     // MARK: - Properties
     
-    let scrollView: UIScrollView = {
+    private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
     
-    let contentView: UIView = {
+    private let contentView: UIView = {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         return contentView
     }()
     
-    let customStackView: UIStackView = {
-        let textDataStackView = UIStackView()
-        textDataStackView.axis = .vertical
-        textDataStackView.spacing = 15
-        textDataStackView.translatesAutoresizingMaskIntoConstraints = false
-        return textDataStackView
+    private let customStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 15
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
     
-    var pieChartView: PieChartView!
-    
-    let headerView: UIView = {
+    private let headerView: UIView = {
         let headerView = UIView()
         return headerView
     }()
-
-    let headerLabel: UILabel = {
+    
+    private let headerLabel: UILabel = {
         let headerLabel = UILabel()
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         headerLabel.text = "Портфель"
@@ -48,30 +46,31 @@ final class CircleViewController: UIViewController {
         return headerLabel
     }()
     
-    let customTableView: UIView = {
+    private let customTableView: UIView = {
         let customTableView = UIView()
         customTableView.translatesAutoresizingMaskIntoConstraints = false
         customTableView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         customTableView.layer.cornerRadius = 20
         customTableView.clipsToBounds = true
+        customTableView.backgroundColor = .subviewBackgroundColor
         return customTableView
     }()
     
-    let customView: UIView = {
+    private let customView: UIView = {
         let customView = UIView()
         customView.translatesAutoresizingMaskIntoConstraints = false
         customView.layer.cornerRadius = 20
-        customView.backgroundColor =  .white
+        customView.backgroundColor = .subviewBackgroundColor
         return customView
     }()
     
-    let tableView: UITableView = {
+    private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
-    let sumLabel: UILabel = {
+    private let sumLabel: UILabel = {
         let sumLabel = UILabel()
         sumLabel.text = "3 660 $"
         sumLabel.font = UIFont(name: "Helvetica-Bold", size: 26)
@@ -80,40 +79,40 @@ final class CircleViewController: UIViewController {
         return sumLabel
     }()
     
-    let stockSlider: UISlider = {
+    private let stockSlider: UISlider = {
         let stockSlider = CustomSlider()
         stockSlider.minimumValue = 0
         stockSlider.maximumValue = 100
         stockSlider.value = 61.6
-        stockSlider.minimumTrackTintColor = UIColor(red: 46/255, green: 132/255, blue: 82/255, alpha: 1)
+        stockSlider.minimumTrackTintColor = .darkGreen
         stockSlider.setThumbImage(UIImage(), for: .normal)
         stockSlider.translatesAutoresizingMaskIntoConstraints = false
         return stockSlider
     }()
     
-    let fundSlider: UISlider = {
+    private let fundSlider: UISlider = {
         let fundSlider = CustomSlider()
         fundSlider.minimumValue = 0
         fundSlider.maximumValue = 100
         fundSlider.value = 32.4
         fundSlider.setThumbImage(UIImage(), for: .normal)
-        fundSlider.minimumTrackTintColor = UIColor(red: 78/255, green: 188/255, blue: 115/255, alpha: 1)
+        fundSlider.minimumTrackTintColor = .brightGreen
         fundSlider.translatesAutoresizingMaskIntoConstraints = false
         return fundSlider
     }()
     
-    let obligationSlider: UISlider = {
+    private let obligationSlider: UISlider = {
         let obligationSlider = CustomSlider()
         obligationSlider.minimumValue = 0
         obligationSlider.maximumValue = 10
         obligationSlider.value = 1.6
         obligationSlider.setThumbImage(UIImage(), for: .normal)
-        obligationSlider.minimumTrackTintColor = UIColor(red: 133/255, green: 212/255, blue: 143/255, alpha: 1)
+        obligationSlider.minimumTrackTintColor = .lightGreen
         obligationSlider.translatesAutoresizingMaskIntoConstraints = false
         return obligationSlider
     }()
     
-    let stockLabel: UILabel = {
+    private let stockLabel: UILabel = {
         let stockLabel = UILabel()
         stockLabel.text = "Акции"
         stockLabel.textColor = .lightGray
@@ -121,15 +120,15 @@ final class CircleViewController: UIViewController {
         return stockLabel
     }()
     
-    let fundLabel: UILabel = {
-        let fundsLabel = UILabel()
-        fundsLabel.text = "Фонды"
-        fundsLabel.textColor = .lightGray
-        fundsLabel.translatesAutoresizingMaskIntoConstraints = false
-        return fundsLabel
+    private let fundLabel: UILabel = {
+        let fundLabel = UILabel()
+        fundLabel.text = "Фонды"
+        fundLabel.textColor = .lightGray
+        fundLabel.translatesAutoresizingMaskIntoConstraints = false
+        return fundLabel
     }()
     
-    let obligationLabel: UILabel = {
+    private let obligationLabel: UILabel = {
         let obligationLabel = UILabel()
         obligationLabel.text = "Облигации"
         obligationLabel.textColor = .lightGray
@@ -137,7 +136,7 @@ final class CircleViewController: UIViewController {
         return obligationLabel
     }()
     
-    let totalStockLabel: UILabel = {
+    private let totalStockLabel: UILabel = {
         let totalStocksLabel = UILabel()
         totalStocksLabel.text = "5 акций"
         totalStocksLabel.textColor = .lightGray
@@ -145,28 +144,28 @@ final class CircleViewController: UIViewController {
         return totalStocksLabel
     }()
     
-    let numberStockLabel: UILabel = {
+    private let numberStockLabel: UILabel = {
         let numberStockLabel = UILabel()
         numberStockLabel.text = "61,6%"
         numberStockLabel.translatesAutoresizingMaskIntoConstraints = false
         return numberStockLabel
     }()
     
-    let numberFundLabel: UILabel = {
+    private let numberFundLabel: UILabel = {
         let numberFundLabel = UILabel()
         numberFundLabel.text = "32,4%"
         numberFundLabel.translatesAutoresizingMaskIntoConstraints = false
         return numberFundLabel
     }()
     
-    let numberObligationLabel: UILabel = {
+    private let numberObligationLabel: UILabel = {
         let numberObligationLabel = UILabel()
         numberObligationLabel.text = "5%"
         numberObligationLabel.translatesAutoresizingMaskIntoConstraints = false
         return numberObligationLabel
     }()
     
-    let textDataStackView: UIStackView = {
+    private let textDataStackView: UIStackView = {
         let textDataStackView = UIStackView()
         textDataStackView.axis = .vertical
         textDataStackView.spacing = 15
@@ -174,7 +173,7 @@ final class CircleViewController: UIViewController {
         return textDataStackView
     }()
     
-    let numberDataStackView: UIStackView = {
+    private let numberDataStackView: UIStackView = {
         let numberDataStackView = UIStackView()
         numberDataStackView.axis = .vertical
         numberDataStackView.spacing = 15
@@ -183,31 +182,29 @@ final class CircleViewController: UIViewController {
         return numberDataStackView
     }()
     
-    let model = Model()
+    private let model = CompanyModel()
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor =  UIColor(red: 0.9686275125, green: 0.9686275125, blue: 0.9686275125, alpha: 1)
+        view.backgroundColor = .viewBackgroundColor
         
         tableView.delegate = self
         tableView.dataSource = self
         
         tableView.register(CustomCell.self, forCellReuseIdentifier: CustomCell.identifier)
         
-        createCircle()
-        
         setupUI()
-        
         createConstraints()
+        createCircle()
     }
     
-    // MARK: - Setup Methods
+    // MARK: - UI Setup
     
     private func createCircle() {
-        pieChartView = PieChartView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+        let pieChartView = PieChartView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
         
         let entries = [
             PieChartDataEntry(value: 28.4, label: ""),
@@ -216,7 +213,7 @@ final class CircleViewController: UIViewController {
         ]
         
         let dataSet = PieChartDataSet(entries: entries, label: "")
-        dataSet.colors = [NSUIColor(red: 78/255, green: 188/255, blue: 115/255, alpha: 1), NSUIColor(red: 133/255, green: 212/255, blue: 143/255, alpha: 1), NSUIColor(red: 46/255, green: 132/255, blue: 82/255, alpha: 1)]
+        dataSet.colors = [ .brightGreen, .lightGreen, .darkGreen]
         dataSet.sliceSpace = 5
         dataSet.formLineWidth = 10
         dataSet.valueLineWidth = 10
@@ -230,32 +227,44 @@ final class CircleViewController: UIViewController {
         pieChartView.drawEntryLabelsEnabled = false
         pieChartView.legend.enabled = false
         pieChartView.translatesAutoresizingMaskIntoConstraints = false
+        
+        customView.addSubview(pieChartView)
+        customView.addSubview(sumLabel)
+        customView.addSubview(totalStockLabel)
+        
+        NSLayoutConstraint.activate([
+            pieChartView.centerXAnchor.constraint(equalTo: customView.centerXAnchor),
+            pieChartView.topAnchor.constraint(equalTo: customView.topAnchor, constant: 5),
+            pieChartView.widthAnchor.constraint(equalToConstant: 250),
+            pieChartView.heightAnchor.constraint(equalToConstant: 250),
+            
+            sumLabel.centerXAnchor.constraint(equalTo: pieChartView.centerXAnchor),
+            sumLabel.topAnchor.constraint(equalTo: pieChartView.topAnchor, constant: 105),
+            
+            totalStockLabel.topAnchor.constraint(equalTo: sumLabel.bottomAnchor, constant: 5),
+            totalStockLabel.centerXAnchor.constraint(equalTo: pieChartView.centerXAnchor),
+            totalStockLabel.heightAnchor.constraint(equalToConstant: 20)
+        ])
     }
     
     private func setupUI() {
-        
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-
+        
         [stockLabel, fundLabel, obligationLabel].forEach { textDataStackView.addArrangedSubview($0) }
         [numberStockLabel, numberFundLabel, numberObligationLabel].forEach { numberDataStackView.addArrangedSubview($0) }
         
-        customView.addSubview(pieChartView)
-        pieChartView.addSubview(sumLabel)
-        pieChartView.addSubview(totalStockLabel)
         customView.addSubview(textDataStackView)
         customView.addSubview(numberDataStackView)
-        customView.addSubview(fundSlider)
-        customView.addSubview(obligationSlider)
         customView.addSubview(stockSlider)
         customView.addSubview(fundSlider)
         customView.addSubview(obligationSlider)
         
         customTableView.addSubview(tableView)
         headerView.addSubview(headerLabel)
-                
+        
         [customView, customTableView].forEach { customStackView.addArrangedSubview($0) }
-
+        
         contentView.addSubview(customStackView)
     }
     
@@ -280,18 +289,6 @@ final class CircleViewController: UIViewController {
             customView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             customView.heightAnchor.constraint(equalToConstant: 390),
             
-            pieChartView.centerXAnchor.constraint(equalTo: customView.centerXAnchor),
-            pieChartView.topAnchor.constraint(equalTo: customView.topAnchor, constant: 5),
-            pieChartView.widthAnchor.constraint(equalToConstant: 250),
-            pieChartView.heightAnchor.constraint(equalToConstant: 250),
-            
-            sumLabel.centerXAnchor.constraint(equalTo: pieChartView.centerXAnchor),
-            sumLabel.topAnchor.constraint(equalTo: pieChartView.topAnchor, constant: 105),
-            
-            totalStockLabel.topAnchor.constraint(equalTo: sumLabel.bottomAnchor, constant: 5),
-            totalStockLabel.centerXAnchor.constraint(equalTo: pieChartView.centerXAnchor),
-            totalStockLabel.heightAnchor.constraint(equalToConstant: 20),
-            
             textDataStackView.leadingAnchor.constraint(equalTo: customView.leadingAnchor, constant: 20),
             textDataStackView.bottomAnchor.constraint(equalTo: customView.bottomAnchor, constant: -30),
             
@@ -312,7 +309,7 @@ final class CircleViewController: UIViewController {
             customTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             customTableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
             customTableView.heightAnchor.constraint(equalToConstant: 390),
-
+            
             tableView.topAnchor.constraint(equalTo: customTableView.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: customTableView.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: customTableView.trailingAnchor),
@@ -342,19 +339,17 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let image = model.images[indexPath.row]
+        let row = indexPath.row
+        let image = model.images[row]
+        let name = model.nameCompany[row]
+        let totalStock = model.totalStocks[row]
+        let percentLabel = model.percentData[row]
+        let percentLabelColor = model.percentTextColors[row]
+        
         cell.logoImageView.image = image
-        
-        let name = model.nameCompany[indexPath.row]
         cell.nameLabel.text = name
-        
-        let totalStock = model.totalStocks[indexPath.row]
         cell.totalLabel.text = totalStock
-        
-        let percentLabel = model.percentData[indexPath.row]
         cell.percentLabel.text = percentLabel
-        
-        let percentLabelColor = model.percentTextColors[indexPath.row]
         cell.percentLabel.textColor = percentLabelColor
         
         return cell
@@ -372,3 +367,4 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
         return 40
     }
 }
+

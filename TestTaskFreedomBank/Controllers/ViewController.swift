@@ -12,11 +12,11 @@ final class ViewController: UIViewController {
 
     // MARK: - Properties
     
-    let model = Model()
-    lazy var circleViewController = CircleViewController()
-    lazy var chartViewController = ChartViewController()
+    private let model = CompanyModel()
+    private lazy var circleViewController = CircleViewController()
+    private lazy var chartViewController = ChartViewController()
     
-    lazy var segmentedControl: UISegmentedControl = {
+    private lazy var segmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: model.itemsCircleSegmentedControl)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.selectedSegmentIndex = 0

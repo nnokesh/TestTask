@@ -6,22 +6,20 @@
 //
 
 import UIKit
+import Charts
 
-struct Model {
+struct CompanyModel {
     let images: [UIImage]
     let nameCompany: [String]
     let totalStocks: [String]
     let percentData: [String]
     let percentTextColors: [UIColor]
     let itemsCircleSegmentedControl: [String]
-    let itemsChartSegmentedControl: [String]
-
+   
     init() {
         
         itemsCircleSegmentedControl = ["Портфель", "Структура"]
         
-        itemsChartSegmentedControl = ["1 д", "7 д","1 м","3 м","6 м","12 м"]
-
         images = [
             UIImage(named: "LogoNetflix"),
             UIImage(named: "LogoUber"),

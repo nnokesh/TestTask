@@ -14,46 +14,46 @@ final class ChartViewController: UIViewController {
     // MARK: - Properties
     
     /// The segmented control for selecting different chart options.
-    lazy var segmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: model.itemsChartSegmentedControl)
+    private lazy var segmentedControl: UISegmentedControl = {
+        let segmentedControl = UISegmentedControl(items: chartDataModel.itemsChartSegmentedControl)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.selectedSegmentIndex = 0
         return segmentedControl
     }()
     
     /// The view representing the chart.
-    let graphView: UIView = {
+    private let graphView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 20
-        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        view.backgroundColor = .subviewBackgroundColor
         return view
     }()
     
     /// The view for displaying analysis.
-    let analysisView: UIView = {
+    private let analysisView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 20
-        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        view.backgroundColor = .subviewBackgroundColor
         return view
     }()
     
     /// The table view for displaying analysis details.
-    let tableView: UITableView = {
+    private let tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
     
     /// The header view for the table view.
-    let headerView: UIView = {
+    private let headerView: UIView = {
         let headerView = UIView()
         return headerView
     }()
     
     /// The label for the table view header.
-    let headerLabel: UILabel = {
+    private let headerLabel: UILabel = {
         let headerLabel = UILabel()
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         headerLabel.text = "Анализ доходности портфеля"
@@ -62,10 +62,10 @@ final class ChartViewController: UIViewController {
     }()
     
     /// The model instance containing the data and configuration.
-    let model = Model()
+    private let model = CompanyModel()
     
     /// The line chart view for displaying the chart data.
-    var lineChartView: LineChartView = {
+    private var lineChartView: LineChartView = {
         let chartView = LineChartView()
         chartView.backgroundColor = .white
         chartView.leftAxis.enabled = false
@@ -76,42 +76,8 @@ final class ChartViewController: UIViewController {
         return chartView
     }()
     
-    /// The data entries for the first line on the chart.
-    let yValues: [ChartDataEntry] = [
-        ChartDataEntry(x: 0.0, y: 34.00),
-        ChartDataEntry(x: 1.0, y: 37.39),
-        ChartDataEntry(x: 2.0, y: 37.0),
-        ChartDataEntry(x: 3.0, y: 38.0),
-        ChartDataEntry(x: 4.0, y: 39.0),
-        ChartDataEntry(x: 5.0, y: 34.0),
-        ChartDataEntry(x: 6.0, y: 33.0),
-        ChartDataEntry(x: 7.0, y: 32.0),
-        ChartDataEntry(x: 8.0, y: 33.0),
-        ChartDataEntry(x: 9.0, y: 35.0),
-        ChartDataEntry(x: 10.0, y: 34.0),
-        ChartDataEntry(x: 11.0, y: 36.5),
-        ChartDataEntry(x: 12.0, y: 37.0),
-        ChartDataEntry(x: 13.0, y: 38.2),
-    ]
-    
-    /// The data entries for the second line on the chart.
-    let secondYValues: [ChartDataEntry] = [
-        ChartDataEntry(x: 0.0, y: 41.0),
-        ChartDataEntry(x: 1.0, y: 40.0),
-        ChartDataEntry(x: 2.0, y: 40.5),
-        ChartDataEntry(x: 3.0, y: 39.0),
-        ChartDataEntry(x: 4.0, y: 38.0),
-        ChartDataEntry(x: 5.0, y: 38.5),
-        ChartDataEntry(x: 6.0, y: 36.0),
-        ChartDataEntry(x: 7.0, y: 35.5),
-        ChartDataEntry(x: 8.0, y: 34.0),
-        ChartDataEntry(x: 9.0, y: 34.5),
-        ChartDataEntry(x: 10.0, y: 34.2),
-        ChartDataEntry(x: 11.0, y: 35.0),
-        ChartDataEntry(x: 12.0, y: 36.0),
-        ChartDataEntry(x: 13.0, y: 37.5),
-    ]
-    
+    private let chartDataModel = ChartDataModel()
+ 
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
@@ -175,7 +141,7 @@ final class ChartViewController: UIViewController {
     // MARK: - Data Setup
     
     private func setData() {
-        let set1 = LineChartDataSet(entries: yValues, label: "Доходность")
+        let set1 = LineChartDataSet(entries: chartDataModel.yValues, label: "Доходность")
         set1.mode = .linear
         set1.lineWidth = 3
         set1.setColor(.systemBlue)
@@ -184,7 +150,7 @@ final class ChartViewController: UIViewController {
         set1.drawFilledEnabled = true
         set1.drawCirclesEnabled = false
         
-        let set2 = LineChartDataSet(entries: secondYValues, label: "Чистые активы")
+        let set2 = LineChartDataSet(entries: chartDataModel.secondYValues, label: "Чистые активы")
         set2.mode = .linear
         set2.lineWidth = 3
         set2.setColor(.systemPurple)
